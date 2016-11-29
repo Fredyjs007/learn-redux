@@ -12,3 +12,5 @@
     <p>Boiler Plate 3</p>,
     document.getElementById('app')
   );
+
+  require('./redux-example.jsx');
