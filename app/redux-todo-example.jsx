@@ -17,13 +17,26 @@
         return state;
     }
   };
-  var store = redux.createStore(reducer);
+  var store = redux.createStore(reducer, redux.compose(
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ));
 
-  console.log('currentState', store.getState());
+  //Subscribe to changes
+    store.subscribe(() => {
+      var state = store.getState();
+    document.getElementById('app').innerHTML = state.searchText;
+  });
+
+  var currentState = store.getState();
+  console.log('currentState', currentState);
+  //unsubscribe();
 
   store.dispatch({
     type: 'CHANGE_SEARCH_TEXT',
     searchText: 'Have Fun'
   });
 
-  console.log('Text should be Have fun', store.getState());
+  store.dispatch({
+    type: 'CHANGE_SEARCH_TEXT',
+    searchText: 'Smoke some dank weed with some hynas'
+  });

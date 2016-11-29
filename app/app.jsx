@@ -8,10 +8,10 @@
   // App css
   require('style!css!sass!applicationStyles')
 
-  ReactDOM.render(
-    <p>Boiler Plate 3</p>,
-    document.getElementById('app')
-  );
+  // ReactDOM.render(
+  //   <p>Boiler Plate 3</p>,
+  //   document.getElementById('app')
+  // );
 
   //require('./redux-example.jsx');
   require('./redux-todo-example.jsx');
