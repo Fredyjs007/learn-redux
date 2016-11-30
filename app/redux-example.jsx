@@ -2,14 +2,8 @@
 
   console.log('starting redux example');
 
-  var stateDefault = {
-    name: 'Anonymous',
-    hobbies: [],
-    movies: []
-  };
-  var nextHobbyId = 1;
-  var nextMovieId = 1;
-
+  // Name Reducer and action Generators
+  // ----------------------------------
   var nameReducer = (state = 'Anonymous', action) => {
     switch (action.type) {
       case 'CHANGE_NAME':
@@ -19,6 +13,16 @@
     };
   };
 
+  var changeName = (name) => {
+    return {
+      type: 'CHANGE_NAME',
+      name
+    }
+  };
+
+  // Hobbies Reducer and action Generators
+  // ----------------------------------
+  var nextHobbyId = 1;
   var hobbiesReducer = (state = [], action) => {
     switch (action.type) {
       case 'ADD_HOBBY':
@@ -36,6 +40,23 @@
     };
   };
 
+  var addHobby = (hobby) => {
+    return {
+      type: 'ADD_HOBBY',
+      hobby
+    };
+  };
+
+  var removeHobby = (id) => {
+    return {
+      type: 'REMOVE_HOBBY',
+      id
+    };
+  };
+
+  // Movies Reducer and action Generators
+  // ----------------------------------
+  var nextMovieId = 1;
   var moviesReducer = (state = [], action) => {
     switch (action.type) {
       case 'ADD_MOVIE':
@@ -53,6 +74,23 @@
         return state;
     };
   };
+
+  var addMovie = (title, genre) => {
+    return {
+      type: 'ADD_MOVIE',
+      title,
+      genre
+    };
+  };
+
+  var removeMovie = (id) => {
+    return {
+      type: 'REMOVE_MOVIE',
+      id
+    };
+  };
+
+  // --------------------------------
 
   var reducer = redux.combineReducers({
     name: nameReducer,
@@ -78,44 +116,13 @@
   console.log('currentState', currentState);
   //unsubscribe();
 
-  store.dispatch({
-    type: 'CHANGE_NAME',
-    name: 'Fredy'
-  });
+  store.dispatch(changeName('Fredy'));
+  store.dispatch(changeName('Emily'));
 
-  store.dispatch({
-    type: 'ADD_HOBBY',
-    hobby: 'Running'
-  });
+  store.dispatch(addHobby('Running'));
+  store.dispatch(addHobby('Smoking'));
+  store.dispatch(removeHobby(2));
 
-  store.dispatch({
-    type: 'ADD_HOBBY',
-    hobby: 'Smoking'
-  });
-
-  store.dispatch({
-    type: 'REMOVE_HOBBY',
-    id: 2
-  });
-
-  store.dispatch({
-    type: 'CHANGE_NAME',
-    name: 'Fred'
-  });
-
-  store.dispatch({
-    type: 'ADD_MOVIE',
-    title: 'The Dark Knight',
-    genre: 'Action',
-  });
-
-  store.dispatch({
-    type: 'ADD_MOVIE',
-    title: 'Django',
-    genre: 'Action',
-  });
-
-  store.dispatch({
-    type: 'REMOVE_MOVIE',
-    id: 1
-  });
+  store.dispatch(addMovie('The Dark Knight', 'Action'));
+  store.dispatch(addMovie('Django', 'Action'));
+  store.dispatch(removeMovie(1));
